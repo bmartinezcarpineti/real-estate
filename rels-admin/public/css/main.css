@@ -1,0 +1,19 @@
+html {
+  font-size: 20px;
+}
+
+#united-logo{
+  max-width:300px;
+}
+
+#united-logo-navbar{
+  max-width:150px;
+}
+
+#welcome{
+  font-size: 30px;
+}
+
+#photo-prop{
+  max-width: 20rem;
+}

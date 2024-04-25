@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: rels-database
+    env_file:
+      - ./env/db.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '7'
+
+  admin:
+    build: ./rels-admin
+    container_name: rels-admin
+    env_file:
+      - ./env/admin.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '7'
+
+  api:
+    build: ./rels-api
+    container_name: rels-api
+    env_file:
+      - ./env/api.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '7'
+
+  enduser:
+    build: 
+      context: ./rels-enduser
+      args:
+      - VITE_API_URL=$VITE_API_URL
+    container_name: rels-enduser
+    env_file:
+      - ./env/enduser.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '7'
+    
+  nginx:
+    image: nginx:latest
+    container_name: rels-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - admin
+      - api
+      - enduser
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '7'
+
+volumes:
+  db_data:
+    name: "rels-volume"

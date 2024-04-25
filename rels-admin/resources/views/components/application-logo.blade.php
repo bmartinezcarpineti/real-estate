@@ -1,0 +1,1 @@
+<img {{ $attributes }} src="https://i.ibb.co/WcmGx37/united2.png" alt="company logo">
