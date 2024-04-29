@@ -1,7 +1,7 @@
 # Real Estate Listing System
 
 This is a system to manage real estate, where the agents can publish the houses, apartments, etc and the customers can look at them. It involves three subsystems, two web applications and an api.  
-__Technolgies summary:__ HTML, CSS, Bootstrap, PHP, Laravel, Javascript, Vue, NodeJS, Docker, Nginx, SQL, Swagger.
+__Technologies summary:__ HTML, CSS, Bootstrap, PHP, Laravel, Javascript, Vue, NodeJS, Docker, Nginx, SQL, Swagger.
 
 ## Subsystems
 
